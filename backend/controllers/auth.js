@@ -31,6 +31,7 @@ class UnAuthenticatedError extends CustomAPIError {
 
 exports.postLogin = async (req, res) => {
   const { email, password } = req.body;
+  console.log("req.body", req.body);
   if (!email || !password) {
     throw new BadRequestError("Please provide all values");
   }

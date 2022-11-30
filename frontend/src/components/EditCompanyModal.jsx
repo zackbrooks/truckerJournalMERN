@@ -1,28 +1,35 @@
-import { Box, Button, Modal, Container, TextField } from "@mui/material";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Modal,
+  Container,
+  TextField,
+} from "@mui/material";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { shades } from "./../theme";
-import axios from "axios";
 import api from "../api/posts";
 
-const AddCompanyModal = ({ open, handleClose, update }) => {
+const EditCompanyModal = ({ open, handleClose, company, update }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    name: "",
-    location: "",
-    phoneNumber: "",
-    email: "",
-    rating: "",
-    routing: "",
-    notes: "",
+    name: company.name,
+    location: company.location,
+    phoneNumber: company.phoneNumber,
+    email: company.email,
+    rating: company.rating,
+    routing: company.routing,
+    notes: company.notes,
   });
+  useEffect(() => {
+    setValues(company);
+  }, [open]);
 
-  const addCompany = async (compInfo) => {
-    const addComp = await api.post(`/company/add`, {
-      compInfo,
+  const updateCompany = async (compInfo) => {
+    const updated = await api.post(`/company/edit/${company._id}`, {
+      data: { compInfo },
     });
-    update();
-    navigate("/journal");
   };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -30,16 +37,9 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
 
   const handleSubmit = () => {
     handleClose();
-    addCompany(values);
-    setValues({
-      name: "",
-      location: "",
-      phoneNumber: "",
-      email: "",
-      rating: "",
-      routing: "",
-      notes: "",
-    });
+    updateCompany(values);
+    update(values);
+    navigate(`/company/${company._id}`);
   };
 
   return (
@@ -69,55 +69,55 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             helperText="Enter company name above"
             id="demo-helper-text-aligned"
             label="Company Name"
-            value={values.name}
             onChange={handleChange("name")}
             required
+            defaultValue={company.name}
           />
           <TextField
             helperText="Enter location above"
             id="demo-helper-text-aligned"
             label="Location"
-            value={values.location}
             onChange={handleChange("location")}
+            defaultValue={company.location}
           />
           <TextField
             helperText="Please enter your name"
             id="demo-helper-text-aligned"
             label="Email"
-            value={values.email}
             onChange={handleChange("email")}
+            defaultValue={company.email}
           />
           <TextField
             helperText="Please phone number above"
             id="demo-helper-text-aligned"
             label="Phone Number"
-            value={values.phoneNumber}
             onChange={handleChange("phoneNumber")}
+            defaultValue={company.phoneNumber}
           />
           <TextField
             helperText="Enter rating above"
             id="demo-helper-text-aligned"
             label="Rating"
-            value={values.rating}
             onChange={handleChange("rating")}
+            defaultValue={company.rating}
           />
           <TextField
             helperText="Please routing notes above"
             id="demo-helper-text-aligned"
             label="Routing"
-            value={values.routing}
             onChange={handleChange("routing")}
             multiline
             rows={5}
+            defaultValue={company.routing}
           />
           <TextField
             helperText="Enter notes above"
             id="demo-helper-text-aligned"
             label="Notes"
-            value={values.notes}
             onChange={handleChange("notes")}
             multiline
             rows={5}
+            defaultValue={company.name}
           />
           <Box
             display="flex"
@@ -140,7 +140,11 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
               variant="contained"
               sx={{ backgroundColor: shades.neutral[400], color: "white" }}
               size="small"
-              onClick={handleClose}
+              onClick={() => {
+                {
+                  handleClose(false);
+                }
+              }}
             >
               Cancel
             </Button>
@@ -151,4 +155,4 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
   );
 };
 
-export default AddCompanyModal;
+export default EditCompanyModal;

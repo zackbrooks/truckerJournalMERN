@@ -33,17 +33,19 @@ class UnAuthenticatedError extends CustomAPIError {
 // @/broker
 // @/Creates Broker in db
 exports.createBroker = async (req, res) => {
-  const { phoneNumber, lastName, firstName } = req.body;
+  const { phoneNumber, lastName, firstName } = req.body.brokerInfo;
+
   if (!phoneNumber || !lastName || !firstName) {
     throw new BadRequestError("Please provide all values");
   }
   await Broker.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    userId: req.body.id,
-    rating: req.body.rating,
-    email: req.body.email,
-    phoneNumber: req.body.phoneNumber,
+    firstName: req.body.brokerInfo.firstName,
+    lastName: req.body.brokerInfo.lastName,
+    userId: "631bb8fbaee3dafac6fea6e1",
+    // userId: req.body.brokerInfo.id,
+    rating: req.body.brokerInfo.rating,
+    email: req.body.brokerInfo.email,
+    phoneNumber: req.body.brokerInfo.phoneNumber,
   });
 
   res.status(StatusCodes.CREATED).json({ msg: "Broker Created" });
@@ -65,9 +67,12 @@ exports.getBrokers = async (req, res) => {
 // @/viewone/id
 // @gets one specific broker for that user
 exports.getBroker = async (req, res) => {
-  const broker = await Broker.findById(req.params.id);
-
-  res.json({ broker });
+  try {
+    const broker = await Broker.findById(req.params.id);
+    res.json(broker);
+  } catch (error) {
+    console.log("error", error);
+  }
 };
 
 // @post
@@ -78,14 +83,14 @@ exports.updateBroker = async (req, res) => {
     { _id: req.params.id },
     {
       $set: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        firstName: req.body.data.brokerInfo.firstName,
+        lastName: req.body.data.brokerInfo.lastName,
         userId: "631bb8fbaee3dafac6fea6e1",
         // userId: req.body.id,
-        rating: req.body.rating,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        notes: req.body.notes,
+        rating: req.body.data.brokerInfo.rating,
+        email: req.body.data.brokerInfo.email,
+        phoneNumber: req.data.brokerInfo.body.phoneNumber,
+        notes: req.body.data.brokerInfo.notes,
       },
     }
   );
@@ -98,6 +103,5 @@ exports.updateBroker = async (req, res) => {
 // @gets all brokers for that user
 exports.deleteBroker = async (req, res) => {
   await Broker.findOneAndDelete({ _id: req.body.brokerId });
-  console.log("Deleted Todo");
-  res.json({ message: "Deleted It" });
+  res.status(201).json({ message: "Deleted Broker" });
 };

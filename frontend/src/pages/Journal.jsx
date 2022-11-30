@@ -1,31 +1,38 @@
-import { Tabs, Tab, Skeleton, Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Tabs, Tab, Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import CompanyCard from "../components/CompanyCard";
 import Wrapper from "../components/HOC/Wrapper";
 import BrokerCard from "../components/BrokerCard";
 import AddCompanyModal from "../components/AddCompanyModal";
+import AddBrokerModal from "../components/AddBrokerModal";
 import { shades } from "../theme";
+import api from "../api/posts";
 
 const Journal = () => {
   const [companies, setCompanies] = useState([]);
   const [brokers, setBrokers] = useState([]);
   const [value, setValue] = useState("company");
   const [companyOpen, setCompanyOpen] = useState(false);
+  const [brokerOpen, setBrokerOpen] = useState(false);
 
-  const getUserJournalData = async (id) => {
-    const companies = await axios.get(`http://localhost:5000/company/allcomps`);
-    const brokers = await axios.get(`http://localhost:5000/broker/allbrokers`);
+  const getCompanies = async (id) => {
+    const companies = await api.get(`/company/allcomps`);
     setCompanies(companies.data.allComps);
+  };
+  const getBrokers = async (id) => {
+    const brokers = await api.get(`/broker/allbrokers`);
     setBrokers(brokers.data.brokers);
   };
   useEffect(() => {
-    getUserJournalData();
+    getCompanies();
+    getBrokers();
   }, []);
 
   const handleAddCompany = () => {
     setCompanyOpen(!companyOpen);
+  };
+  const handleAddBroker = () => {
+    setBrokerOpen(!brokerOpen);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -53,7 +60,7 @@ const Journal = () => {
         <AddCompanyModal
           open={companyOpen}
           handleClose={handleAddCompany}
-          update={getUserJournalData}
+          update={getCompanies}
         />
 
         <Button
@@ -61,9 +68,17 @@ const Journal = () => {
           variant="contained"
           sx={{ backgroundColor: shades.neutral[400], color: "white" }}
           size="large"
+          onClick={() => {
+            handleAddBroker();
+          }}
         >
           Add New Broker
         </Button>
+        <AddBrokerModal
+          open={brokerOpen}
+          handleClose={handleAddBroker}
+          update={getBrokers}
+        />
       </Box>
       <Tabs
         textColor="primary"
@@ -87,16 +102,12 @@ const Journal = () => {
             <CompanyCard
               company={company}
               key={company._id}
-              update={getUserJournalData}
+              update={getCompanies}
             />
           ))}
         {value === "broker" &&
           brokers.map((broker) => (
-            <BrokerCard
-              broker={broker}
-              key={broker._id}
-              update={getUserJournalData}
-            />
+            <BrokerCard broker={broker} key={broker._id} update={getBrokers} />
           ))}
       </Box>
     </Box>

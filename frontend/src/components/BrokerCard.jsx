@@ -10,17 +10,18 @@ import {
   Box,
   Fade,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/posts";
 
-const BrokerCard = (broker) => {
-  const {
-    email,
-    firstName,
-    lastName,
-    rating,
-    _id: id,
-    phoneNumber,
-  } = broker.broker;
+const BrokerCard = ({ broker, update }) => {
+  const { email, firstName, lastName, rating, _id: id, phoneNumber } = broker;
+
+  const handleDelete = async (brokerId) => {
+    const deleteBroker = await api.delete(`/broker/delete`, {
+      data: { brokerId },
+    });
+    update();
+  };
 
   return (
     <Card sx={{ maxWidth: 250, minWidth: 250 }}>
@@ -53,7 +54,11 @@ const BrokerCard = (broker) => {
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
           >
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                handleDelete(id);
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           </Tooltip>

@@ -10,22 +10,18 @@ import {
   Box,
   Fade,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/posts";
 
 const CompanyCard = ({ company, update }) => {
+  const navigate = useNavigate();
   const { email, name, rating, _id: id, phoneNumber } = company;
+
   const handleDelete = async (companyId) => {
-    const deleteComp = await axios.delete(
-      `http://localhost:5000/company/delete`,
-      {
-        data: { companyId },
-      }
-    );
-    console.log(deleteComp);
-    if (deleteComp.statusText === "OK") {
-      update();
-    }
+    const deleteComp = await api.delete(`/company/delete`, {
+      data: { companyId },
+    });
+    update();
   };
 
   return (

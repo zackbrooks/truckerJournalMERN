@@ -29,6 +29,8 @@ const Wrapper = (Component, title) =>
                 top: "-80px",
                 width: "128px",
                 height: "128px",
+                left: "0",
+                right: "0",
                 border: "solid 4px white",
               }}
             />

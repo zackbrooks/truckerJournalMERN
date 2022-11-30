@@ -13,7 +13,7 @@ exports.createComp = async (req, res) => {
       notes: req.body.compInfo.notes,
       email: req.body.compInfo.email,
     });
-    console.log("Company has been added!");
+
     res.json({ message: "Company created" });
   } catch (err) {
     console.log(err);
@@ -44,7 +44,7 @@ exports.deleteCompany = async (req, res) => {
   try {
     await Comp.findOneAndDelete({ _id: req.body.companyId });
     console.log("Deleted Company");
-    res.status(201).json({ message: "Deleted It" });
+    res.status(201).json({ message: "Deleted Company" });
   } catch (err) {
     console.log(err);
   }
@@ -52,20 +52,19 @@ exports.deleteCompany = async (req, res) => {
 
 exports.updateComp = async (req, res) => {
   try {
-    console.log(req.params.id);
     await Comp.findOneAndUpdate(
       { _id: req.params.id },
       {
         $set: {
-          name: req.body.name,
+          name: req.body.data.compInfo.name,
           userId: "631bb8fbaee3dafac6fea6e1",
-          // userId: req.body.id,
-          location: req.body.location,
-          phoneNumber: req.body.phoneNumber,
-          rating: req.body.rating,
-          routing: req.body.routing,
-          notes: req.body.notes,
-          email: req.body.email,
+          // userId: req.body.data.compInfo.id,
+          location: req.body.data.compInfo.location,
+          phoneNumber: req.body.data.compInfo.phoneNumber,
+          rating: req.body.data.compInfo.rating,
+          routing: req.body.data.compInfo.routing,
+          notes: req.body.data.compInfo.notes,
+          email: req.body.data.compInfo.email,
         },
       }
     );

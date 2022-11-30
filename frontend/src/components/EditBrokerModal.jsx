@@ -1,28 +1,34 @@
-import { Box, Button, Modal, Container, TextField } from "@mui/material";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Modal,
+  Container,
+  TextField,
+} from "@mui/material";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { shades } from "./../theme";
-import axios from "axios";
 import api from "../api/posts";
 
-const AddCompanyModal = ({ open, handleClose, update }) => {
+const EditBrokerModal = ({ open, handleClose, broker, update }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    name: "",
-    location: "",
-    phoneNumber: "",
-    email: "",
-    rating: "",
-    routing: "",
-    notes: "",
+    firstName: broker.firstName,
+    lastName: broker.lastName,
+    phoneNumber: broker.phoneNumber,
+    email: broker.email,
+    rating: broker.rating,
+    notes: broker.notes,
   });
+  useEffect(() => {
+    setValues(broker);
+  }, [open]);
 
-  const addCompany = async (compInfo) => {
-    const addComp = await api.post(`/company/add`, {
-      compInfo,
+  const updateBroker = async (brokerInfo) => {
+    const updated = await api.post(`/broker/edit/${broker._id}`, {
+      data: { brokerInfo },
     });
-    update();
-    navigate("/journal");
   };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -30,16 +36,9 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
 
   const handleSubmit = () => {
     handleClose();
-    addCompany(values);
-    setValues({
-      name: "",
-      location: "",
-      phoneNumber: "",
-      email: "",
-      rating: "",
-      routing: "",
-      notes: "",
-    });
+    updateBroker(values);
+    update(values);
+    navigate(`/broker/${broker._id}`);
   };
 
   return (
@@ -66,58 +65,50 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
           }}
         >
           <TextField
-            helperText="Enter company name above"
+            helperText="Enter first name above"
             id="demo-helper-text-aligned"
-            label="Company Name"
-            value={values.name}
-            onChange={handleChange("name")}
+            label="First Name"
+            onChange={handleChange("firstName")}
             required
+            defaultValue={broker.firstName}
           />
           <TextField
-            helperText="Enter location above"
+            helperText="Enter last name above"
             id="demo-helper-text-aligned"
-            label="Location"
-            value={values.location}
-            onChange={handleChange("location")}
+            label="Last Name"
+            onChange={handleChange("lastName")}
+            required
+            defaultValue={broker.lastName}
           />
           <TextField
             helperText="Please enter your name"
             id="demo-helper-text-aligned"
             label="Email"
-            value={values.email}
             onChange={handleChange("email")}
+            defaultValue={broker.email}
           />
           <TextField
             helperText="Please phone number above"
             id="demo-helper-text-aligned"
             label="Phone Number"
-            value={values.phoneNumber}
             onChange={handleChange("phoneNumber")}
+            defaultValue={broker.phoneNumber}
           />
           <TextField
             helperText="Enter rating above"
             id="demo-helper-text-aligned"
             label="Rating"
-            value={values.rating}
             onChange={handleChange("rating")}
-          />
-          <TextField
-            helperText="Please routing notes above"
-            id="demo-helper-text-aligned"
-            label="Routing"
-            value={values.routing}
-            onChange={handleChange("routing")}
-            multiline
-            rows={5}
+            defaultValue={broker.rating}
           />
           <TextField
             helperText="Enter notes above"
             id="demo-helper-text-aligned"
             label="Notes"
-            value={values.notes}
             onChange={handleChange("notes")}
             multiline
             rows={5}
+            defaultValue={broker.name}
           />
           <Box
             display="flex"
@@ -132,7 +123,7 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
               size="small"
               onClick={handleSubmit}
             >
-              Submit Company
+              Submit
             </Button>
 
             <Button
@@ -140,7 +131,11 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
               variant="contained"
               sx={{ backgroundColor: shades.neutral[400], color: "white" }}
               size="small"
-              onClick={handleClose}
+              onClick={() => {
+                {
+                  handleClose(false);
+                }
+              }}
             >
               Cancel
             </Button>
@@ -151,4 +146,4 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
   );
 };
 
-export default AddCompanyModal;
+export default EditBrokerModal;

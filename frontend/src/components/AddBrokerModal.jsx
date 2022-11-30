@@ -1,25 +1,23 @@
 import { Box, Button, Modal, Container, TextField } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { shades } from "./../theme";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import api from "../api/posts";
 
-const AddCompanyModal = ({ open, handleClose, update }) => {
+const AddBrokerModal = ({ open, handleClose, update }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    name: "",
-    location: "",
+    firstName: "",
+    lastName: "",
     phoneNumber: "",
     email: "",
     rating: "",
-    routing: "",
     notes: "",
   });
 
-  const addCompany = async (compInfo) => {
-    const addComp = await api.post(`/company/add`, {
-      compInfo,
+  const addBroker = async (brokerInfo) => {
+    const addBroker = await api.post(`/broker`, {
+      brokerInfo,
     });
     update();
     navigate("/journal");
@@ -30,14 +28,13 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
 
   const handleSubmit = () => {
     handleClose();
-    addCompany(values);
+    addBroker(values);
     setValues({
-      name: "",
-      location: "",
+      firstName: "",
+      lastName: "",
       phoneNumber: "",
       email: "",
       rating: "",
-      routing: "",
       notes: "",
     });
   };
@@ -66,22 +63,23 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
           }}
         >
           <TextField
-            helperText="Enter company name above"
+            helperText="Enter first name above"
             id="demo-helper-text-aligned"
-            label="Company Name"
-            value={values.name}
-            onChange={handleChange("name")}
+            label="First Name"
+            value={values.firstName}
+            onChange={handleChange("firstName")}
             required
           />
           <TextField
-            helperText="Enter location above"
+            helperText="Enter last name above"
             id="demo-helper-text-aligned"
-            label="Location"
-            value={values.location}
-            onChange={handleChange("location")}
+            label="Last Name"
+            value={values.lastName}
+            onChange={handleChange("lastName")}
+            required
           />
           <TextField
-            helperText="Please enter your name"
+            helperText="Enter email above"
             id="demo-helper-text-aligned"
             label="Email"
             value={values.email}
@@ -100,15 +98,6 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             label="Rating"
             value={values.rating}
             onChange={handleChange("rating")}
-          />
-          <TextField
-            helperText="Please routing notes above"
-            id="demo-helper-text-aligned"
-            label="Routing"
-            value={values.routing}
-            onChange={handleChange("routing")}
-            multiline
-            rows={5}
           />
           <TextField
             helperText="Enter notes above"
@@ -132,7 +121,7 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
               size="small"
               onClick={handleSubmit}
             >
-              Submit Company
+              Submit Broker
             </Button>
 
             <Button
@@ -151,4 +140,4 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
   );
 };
 
-export default AddCompanyModal;
+export default AddBrokerModal;
