@@ -71,6 +71,7 @@ function Login() {
       <TextField
         id="demo-helper-text-aligned"
         label="Password"
+        type="password"
         value={values.password}
         onChange={handleChange("password")}
         required

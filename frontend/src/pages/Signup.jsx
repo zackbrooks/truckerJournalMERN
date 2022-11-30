@@ -83,6 +83,7 @@ function Signup() {
         id="demo-helper-text-aligned"
         label="Password"
         value={values.password}
+        type="password"
         onChange={handleChange("password")}
         required
       />
