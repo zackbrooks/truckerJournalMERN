@@ -1,16 +1,25 @@
-import { Box, Button, Modal, Container, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Container,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { shades } from "./../theme";
-import axios from "axios";
 import api from "../api/posts";
+import { useAppContext } from "../context/appContext";
 
 const AddCompanyModal = ({ open, handleClose, update }) => {
+  const { user } = useAppContext();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     location: "",
     phoneNumber: "",
+    id: user._id,
     email: "",
     rating: "",
     routing: "",
@@ -65,6 +74,8 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             flexDirection: "column",
           }}
         >
+          <Typography variant="h3">Add New Company To Your Journal</Typography>
+          <Typography variant="caption">* denotes required fields</Typography>
           <TextField
             helperText="Enter company name above"
             id="demo-helper-text-aligned"

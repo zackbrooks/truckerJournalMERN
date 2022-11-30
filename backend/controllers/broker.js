@@ -41,8 +41,7 @@ exports.createBroker = async (req, res) => {
   await Broker.create({
     firstName: req.body.brokerInfo.firstName,
     lastName: req.body.brokerInfo.lastName,
-    userId: "631bb8fbaee3dafac6fea6e1",
-    // userId: req.body.brokerInfo.id,
+    userId: req.body.brokerInfo.id,
     rating: req.body.brokerInfo.rating,
     email: req.body.brokerInfo.email,
     phoneNumber: req.body.brokerInfo.phoneNumber,
@@ -55,8 +54,7 @@ exports.createBroker = async (req, res) => {
 // @/broker
 // @gets all brokers for that user
 exports.getBrokers = async (req, res) => {
-  const allBrokers = await Broker.find({ userId: "631bb8fbaee3dafac6fea6e1" });
-  // const allBrokers = await Broker.find({ userId: req.query.userId });
+  const allBrokers = await Broker.find({ userId: req.query.userId });
   res.json({
     message: "this is all brokers for that user",
     brokers: allBrokers,
@@ -85,8 +83,7 @@ exports.updateBroker = async (req, res) => {
       $set: {
         firstName: req.body.data.brokerInfo.firstName,
         lastName: req.body.data.brokerInfo.lastName,
-        userId: "631bb8fbaee3dafac6fea6e1",
-        // userId: req.body.id,
+        userId: req.body.data.brokerInfo.id,
         rating: req.body.data.brokerInfo.rating,
         email: req.body.data.brokerInfo.email,
         phoneNumber: req.data.brokerInfo.body.phoneNumber,

@@ -7,6 +7,8 @@ import AddCompanyModal from "../components/AddCompanyModal";
 import AddBrokerModal from "../components/AddBrokerModal";
 import { shades } from "../theme";
 import api from "../api/posts";
+import { useAppContext } from "../context/appContext";
+import Alert from "../components/Alert";
 
 const Journal = () => {
   const [companies, setCompanies] = useState([]);
@@ -14,13 +16,17 @@ const Journal = () => {
   const [value, setValue] = useState("company");
   const [companyOpen, setCompanyOpen] = useState(false);
   const [brokerOpen, setBrokerOpen] = useState(false);
+  const { user } = useAppContext();
+  const userId = user._id;
 
   const getCompanies = async (id) => {
-    const companies = await api.get(`/company/allcomps`);
+    const companies = await api.get(`/company/allcomps`, {
+      params: { userId },
+    });
     setCompanies(companies.data.allComps);
   };
   const getBrokers = async (id) => {
-    const brokers = await api.get(`/broker/allbrokers`);
+    const brokers = await api.get(`/broker/allbrokers`, { params: { userId } });
     setBrokers(brokers.data.brokers);
   };
   useEffect(() => {
@@ -41,9 +47,9 @@ const Journal = () => {
   return (
     <Box display="flex" flexDirection="column">
       <Typography>
-        This is your homebase for all your information. All your notes for
-        various companies and brokers is only a click away. Click any of the
-        buttons below to start.
+        Hello {user.userName}! This is your homebase for all your information.
+        All your notes for various companies and brokers is only a click away.
+        Click any of the buttons below to start.
       </Typography>
       <Box display="flex" justifyContent="center" gap="12px" marginTop="10px">
         <Button

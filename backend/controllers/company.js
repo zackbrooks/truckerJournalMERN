@@ -4,8 +4,7 @@ exports.createComp = async (req, res) => {
   try {
     await Comp.create({
       name: req.body.compInfo.name,
-      userId: "631bb8fbaee3dafac6fea6e1",
-      // userId: req.body.id,
+      userId: req.body.compInfo.id,
       location: req.body.compInfo.location,
       phoneNumber: req.body.compInfo.phoneNumber,
       rating: req.body.compInfo.rating,
@@ -22,8 +21,7 @@ exports.createComp = async (req, res) => {
 
 exports.getComps = async (req, res) => {
   try {
-    const allComps = await Comp.find({ userId: "631bb8fbaee3dafac6fea6e1" });
-    // const allComps = await Comp.find({ userId: req.query.userId });
+    const allComps = await Comp.find({ userId: req.query.userId });
     res.json({ message: "all comps", allComps });
   } catch (err) {
     console.log(err);
@@ -57,8 +55,7 @@ exports.updateComp = async (req, res) => {
       {
         $set: {
           name: req.body.data.compInfo.name,
-          userId: "631bb8fbaee3dafac6fea6e1",
-          // userId: req.body.data.compInfo.id,
+          userId: req.body.data.compInfo.id,
           location: req.body.data.compInfo.location,
           phoneNumber: req.body.data.compInfo.phoneNumber,
           rating: req.body.data.compInfo.rating,

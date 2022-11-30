@@ -1,14 +1,24 @@
-import { Box, Button, Modal, Container, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Container,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { shades } from "./../theme";
 import { useNavigate } from "react-router-dom";
 import api from "../api/posts";
+import { useAppContext } from "../context/appContext";
 
 const AddBrokerModal = ({ open, handleClose, update }) => {
+  const { user } = useAppContext();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
+    id: user._id,
     phoneNumber: "",
     email: "",
     rating: "",
@@ -62,6 +72,8 @@ const AddBrokerModal = ({ open, handleClose, update }) => {
             flexDirection: "column",
           }}
         >
+          <Typography variant="h3">Add New Broker To Your Journal</Typography>
+          <Typography variant="caption">* denotes required fields</Typography>
           <TextField
             helperText="Enter first name above"
             id="demo-helper-text-aligned"

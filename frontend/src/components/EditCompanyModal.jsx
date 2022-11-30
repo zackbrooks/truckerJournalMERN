@@ -10,13 +10,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { shades } from "./../theme";
 import api from "../api/posts";
+import { useAppContext } from "../context/appContext";
 
 const EditCompanyModal = ({ open, handleClose, company, update }) => {
+  const { user } = useAppContext();
+  const userId = user._id;
   const navigate = useNavigate();
   const [values, setValues] = useState({
     name: company.name,
     location: company.location,
     phoneNumber: company.phoneNumber,
+    id: userId,
     email: company.email,
     rating: company.rating,
     routing: company.routing,

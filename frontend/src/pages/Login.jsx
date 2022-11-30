@@ -2,9 +2,10 @@ import Wrapper from "../components/HOC/Wrapper";
 import React from "react";
 import api from "../api/posts";
 import { useNavigate } from "react-router-dom";
-import { Box, TextField, Button, Alert } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import { shades } from "../theme";
 import { useAppContext } from "../context/appContext";
+import Alert from "../components/Alert";
 
 function Login() {
   const [values, setValues] = React.useState({
@@ -24,8 +25,6 @@ function Login() {
         password: values.password,
       };
       loginUser(currentUser);
-      console.log("alerttext", alertText);
-      // console.log()
     } catch (error) {
       console.log("error", error);
     }
@@ -34,9 +33,10 @@ function Login() {
   React.useEffect(() => {
     if (user) {
       loggedIn();
-      setTimeout(() => {
-        navigate("/journal");
-      }, 3000);
+      navigate("/journal");
+      // setTimeout(() => {
+      //   navigate("/journal");
+      // }, 3000);
     }
   }, [user, navigate]);
 
@@ -80,7 +80,7 @@ function Login() {
           color="neutral"
           sx={{ backgroundColor: shades.neutral[400], color: "white" }}
           variant="contained"
-          size="small"
+          size="large"
           onClick={handleSubmit}
         >
           Submit
@@ -90,7 +90,7 @@ function Login() {
           color="neutral"
           variant="contained"
           sx={{ backgroundColor: shades.neutral[400], color: "white" }}
-          size="small"
+          size="large"
           onClick={() => {
             navigate("/");
           }}
