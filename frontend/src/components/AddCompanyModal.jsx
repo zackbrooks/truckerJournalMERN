@@ -64,14 +64,13 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             backgroundColor: "white",
             textAlign: "center",
             borderRadius: "10px",
-            width: "60%",
-            marginTop: "200px",
-            padding: "50px 10px 20px 10px",
+            padding: "10px 10px 20px 10px",
             display: "flex",
             flexWrap: "wrap",
             gap: "4px",
             justifyContent: "center",
             flexDirection: "column",
+            marginTop: "5px",
           }}
         >
           <Typography variant="h3">Add New Company To Your Journal</Typography>
@@ -119,7 +118,7 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             value={values.routing}
             onChange={handleChange("routing")}
             multiline
-            rows={5}
+            rows={3}
           />
           <TextField
             helperText="Enter notes above"
@@ -128,7 +127,7 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
             value={values.notes}
             onChange={handleChange("notes")}
             multiline
-            rows={5}
+            rows={3}
           />
           <Box
             display="flex"

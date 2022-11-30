@@ -59,14 +59,13 @@ const EditCompanyModal = ({ open, handleClose, company, update }) => {
             backgroundColor: "white",
             textAlign: "center",
             borderRadius: "10px",
-            width: "60%",
-            marginTop: "200px",
-            padding: "50px 10px 20px 10px",
+            padding: "10px 10px 20px 10px",
             display: "flex",
             flexWrap: "wrap",
             gap: "4px",
             justifyContent: "center",
             flexDirection: "column",
+            marginTop: "5px",
           }}
         >
           <TextField

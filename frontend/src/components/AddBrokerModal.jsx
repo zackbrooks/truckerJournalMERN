@@ -62,14 +62,13 @@ const AddBrokerModal = ({ open, handleClose, update }) => {
             backgroundColor: "white",
             textAlign: "center",
             borderRadius: "10px",
-            width: "60%",
-            marginTop: "200px",
-            padding: "50px 10px 20px 10px",
+            padding: "10px 10px 20px 10px",
             display: "flex",
             flexWrap: "wrap",
             gap: "4px",
             justifyContent: "center",
             flexDirection: "column",
+            marginTop: "5px",
           }}
         >
           <Typography variant="h3">Add New Broker To Your Journal</Typography>

@@ -91,6 +91,7 @@ function Signup() {
         id="demo-helper-text-aligned"
         label="Confirm Password"
         value={values.password2}
+        type="password"
         onChange={handleChange("password2")}
         required
       />

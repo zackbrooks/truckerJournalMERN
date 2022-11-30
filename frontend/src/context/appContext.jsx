@@ -74,7 +74,7 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
-      const resp = await api.post("/login", currentUser);
+      const resp = await api.post("login", currentUser);
 
       const { user, token } = resp.data;
       dispatch({ type: LOGIN_USER_SUCCESS, payload: { user, token } });

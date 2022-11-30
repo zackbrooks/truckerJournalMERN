@@ -2,7 +2,8 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Wrapper from "../components/HOC/Wrapper";
 import { shades } from "../theme";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/appContext";
 const bull = (
   <Box
     component="span"
@@ -13,6 +14,18 @@ const bull = (
 );
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { user, loggedIn } = useAppContext();
+
+  React.useEffect(() => {
+    if (user) {
+      loggedIn();
+      navigate("/journal");
+      // setTimeout(() => {
+      //   navigate("/journal");
+      // }, 3000);
+    }
+  }, [user, navigate]);
   return (
     <Box maxWidth={400}>
       <Typography variant="h5" marginBottom="5px">
