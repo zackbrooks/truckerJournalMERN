@@ -70,7 +70,6 @@ const EditCompanyModal = ({ open, handleClose, company, update }) => {
         >
           <TextField
             helperText="Enter company name above"
-            id="demo-helper-text-aligned"
             label="Company Name"
             onChange={handleChange("name")}
             required
@@ -78,35 +77,30 @@ const EditCompanyModal = ({ open, handleClose, company, update }) => {
           />
           <TextField
             helperText="Enter location above"
-            id="demo-helper-text-aligned"
             label="Location"
             onChange={handleChange("location")}
             defaultValue={company.location}
           />
           <TextField
             helperText="Please enter your name"
-            id="demo-helper-text-aligned"
             label="Email"
             onChange={handleChange("email")}
             defaultValue={company.email}
           />
           <TextField
             helperText="Please phone number above"
-            id="demo-helper-text-aligned"
             label="Phone Number"
             onChange={handleChange("phoneNumber")}
             defaultValue={company.phoneNumber}
           />
           <TextField
             helperText="Enter rating above"
-            id="demo-helper-text-aligned"
             label="Rating"
             onChange={handleChange("rating")}
             defaultValue={company.rating}
           />
           <TextField
             helperText="Please routing notes above"
-            id="demo-helper-text-aligned"
             label="Routing"
             onChange={handleChange("routing")}
             multiline
@@ -115,7 +109,6 @@ const EditCompanyModal = ({ open, handleClose, company, update }) => {
           />
           <TextField
             helperText="Enter notes above"
-            id="demo-helper-text-aligned"
             label="Notes"
             onChange={handleChange("notes")}
             multiline

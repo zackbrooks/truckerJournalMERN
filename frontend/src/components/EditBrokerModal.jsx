@@ -67,7 +67,6 @@ const EditBrokerModal = ({ open, handleClose, broker, update }) => {
       >
         <TextField
           helperText="Enter first name above"
-          id="demo-helper-text-aligned"
           label="First Name"
           onChange={handleChange("firstName")}
           required
@@ -75,7 +74,6 @@ const EditBrokerModal = ({ open, handleClose, broker, update }) => {
         />
         <TextField
           helperText="Enter last name above"
-          id="demo-helper-text-aligned"
           label="Last Name"
           onChange={handleChange("lastName")}
           required
@@ -83,28 +81,24 @@ const EditBrokerModal = ({ open, handleClose, broker, update }) => {
         />
         <TextField
           helperText="Please enter your name"
-          id="demo-helper-text-aligned"
           label="Email"
           onChange={handleChange("email")}
           defaultValue={broker.email}
         />
         <TextField
           helperText="Please phone number above"
-          id="demo-helper-text-aligned"
           label="Phone Number"
           onChange={handleChange("phoneNumber")}
           defaultValue={broker.phoneNumber}
         />
         <TextField
           helperText="Enter rating above"
-          id="demo-helper-text-aligned"
           label="Rating"
           onChange={handleChange("rating")}
           defaultValue={broker.rating}
         />
         <TextField
           helperText="Enter notes above"
-          id="demo-helper-text-aligned"
           label="Notes"
           onChange={handleChange("notes")}
           multiline

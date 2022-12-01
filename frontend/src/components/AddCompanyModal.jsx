@@ -77,7 +77,6 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
           <Typography variant="caption">* denotes required fields</Typography>
           <TextField
             helperText="Enter company name above"
-            id="demo-helper-text-aligned"
             label="Company Name"
             value={values.name}
             onChange={handleChange("name")}
@@ -85,35 +84,30 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
           />
           <TextField
             helperText="Enter location above"
-            id="demo-helper-text-aligned"
             label="Location"
             value={values.location}
             onChange={handleChange("location")}
           />
           <TextField
             helperText="Please enter your name"
-            id="demo-helper-text-aligned"
             label="Email"
             value={values.email}
             onChange={handleChange("email")}
           />
           <TextField
             helperText="Please phone number above"
-            id="demo-helper-text-aligned"
             label="Phone Number"
             value={values.phoneNumber}
             onChange={handleChange("phoneNumber")}
           />
           <TextField
             helperText="Enter rating above"
-            id="demo-helper-text-aligned"
             label="Rating"
             value={values.rating}
             onChange={handleChange("rating")}
           />
           <TextField
             helperText="Please routing notes above"
-            id="demo-helper-text-aligned"
             label="Routing"
             value={values.routing}
             onChange={handleChange("routing")}
@@ -122,7 +116,6 @@ const AddCompanyModal = ({ open, handleClose, update }) => {
           />
           <TextField
             helperText="Enter notes above"
-            id="demo-helper-text-aligned"
             label="Notes"
             value={values.notes}
             onChange={handleChange("notes")}

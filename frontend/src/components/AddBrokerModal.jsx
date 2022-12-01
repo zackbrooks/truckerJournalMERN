@@ -75,7 +75,6 @@ const AddBrokerModal = ({ open, handleClose, update }) => {
           <Typography variant="caption">* denotes required fields</Typography>
           <TextField
             helperText="Enter first name above"
-            id="demo-helper-text-aligned"
             label="First Name"
             value={values.firstName}
             onChange={handleChange("firstName")}
@@ -83,7 +82,6 @@ const AddBrokerModal = ({ open, handleClose, update }) => {
           />
           <TextField
             helperText="Enter last name above"
-            id="demo-helper-text-aligned"
             label="Last Name"
             value={values.lastName}
             onChange={handleChange("lastName")}
@@ -91,28 +89,24 @@ const AddBrokerModal = ({ open, handleClose, update }) => {
           />
           <TextField
             helperText="Enter email above"
-            id="demo-helper-text-aligned"
             label="Email"
             value={values.email}
             onChange={handleChange("email")}
           />
           <TextField
             helperText="Please phone number above"
-            id="demo-helper-text-aligned"
             label="Phone Number"
             value={values.phoneNumber}
             onChange={handleChange("phoneNumber")}
           />
           <TextField
             helperText="Enter rating above"
-            id="demo-helper-text-aligned"
             label="Rating"
             value={values.rating}
             onChange={handleChange("rating")}
           />
           <TextField
             helperText="Enter notes above"
-            id="demo-helper-text-aligned"
             label="Notes"
             value={values.notes}
             onChange={handleChange("notes")}
